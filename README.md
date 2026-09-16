@@ -1,82 +1,29 @@
-<img src="./assets/header.svg" width="100%" alt="Mohd Farhan, full-stack developer" />
+<!-- Every visual below is a hand-built SVG in ./assets (fonts embedded, no third-party image services). -->
 
-<div align="center">
+<a href="https://mohdfarhan.framer.website/"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/hero.svg" width="100%" alt="Mohd Farhan: I build products end to end. Java & Spring Boot backends, React & Next.js frontends. Currently shipping YUSR AI."></a>
 
-<img src="./assets/typing.svg" alt="Java & Spring Boot backends · React & Next.js frontends · Shipping YUSR AI" />
+<p align="center"><a href="https://mohdfarhan.framer.website/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-portfolio-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-portfolio-light.svg" width="24%" alt="Portfolio"></picture></a><a href="https://www.linkedin.com/in/mohd-farhan-79429624b"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-linkedin-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-linkedin-light.svg" width="24%" alt="LinkedIn"></picture></a><a href="https://yusr.co.in"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-yusrai-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-yusrai-light.svg" width="24%" alt="YUSR AI"></picture></a><a href="https://codolio.com/profile/Farhan7"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-codolio-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-codolio-light.svg" width="24%" alt="Codolio"></picture></a></p>
 
-<br/>
+<br>
 
-<a href="https://mohdfarhan.framer.website/"><img src="./assets/badge-portfolio.svg" alt="Portfolio" /></a>
-<a href="https://www.linkedin.com/in/mohd-farhan-79429624b"><img src="./assets/badge-linkedin.svg" alt="LinkedIn" /></a>
-<a href="https://yusr.co.in"><img src="./assets/badge-yusr.svg" alt="YUSR AI" /></a>
-<a href="https://codolio.com/profile/Farhan7"><img src="./assets/badge-codolio.svg" alt="Codolio" /></a>
-<img src="./assets/badge-open.svg" alt="Open to full-stack roles" />
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-work-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-work-light.svg" width="100%" alt="01 Selected work: Things I've shipped, not just started."></picture>
 
-</div>
+<p align="center"><a href="https://yusr.co.in"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/card-yusr.svg" width="66%" alt="YUSR AI: WhatsApp CRM with a brain"></a><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/card-numbers.svg" width="33%" alt="598 tests, 243 CI runs, 21 repositories"><br><a href="https://github.com/Farhan7-tech/Ecommerce-snapBuy"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/card-snapbuy.svg" width="41.25%" alt="SnapBuy: full-stack e-commerce"></a><a href="https://github.com/Farhan7-tech/SkyLink_File_Share_Application"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/card-skylink.svg" width="57.75%" alt="SkyLink: share a file with six digits"></a><br><a href="https://github.com/Farhan7-tech/Generative-AI-Email-Assistant"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/card-email.svg" width="57.75%" alt="AI Email Assistant: replies that write themselves"></a><a href="https://github.com/Farhan7-tech?tab=repositories"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/card-lab.svg" width="41.25%" alt="Also in the lab: all repositories"></a></p>
 
-<br/>
+<br>
 
-## 👋 About me
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-stack-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-stack-light.svg" width="100%" alt="02 Toolkit: The stack I reach for every day."></picture>
 
-I'm a full-stack developer who likes owning a product end to end, from the database schema to the last pixel. I write backends in **Java and Spring Boot**, build frontends in **React and Next.js**, and ship them to production.
+<img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/toolkit.svg" width="100%" alt="Java, Spring Boot, Spring Security, PostgreSQL, MongoDB, Supabase, Maven, TypeScript, Next.js, React, Redux Toolkit, Tailwind CSS, Gemini API, n8n, GitHub Actions, Docker, Vitest, Sentry">
 
-- 🚀 Building **[YUSR AI](https://yusr.co.in)**, a WhatsApp CRM SaaS for Indian businesses, live in production with subscription billing
-- 🧠 Working on AI features: RAG over business catalogs, Gemini-powered assistants, n8n automation
-- 🔐 I care about the unglamorous parts too: auth, rate limiting, secret scanning, CI, and tests
-- 🌱 Currently going deeper into microservices and system design
+<br>
 
-<br/>
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-activity-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-activity-light.svg" width="100%" alt="03 Activity: Commits, quietly compounding."></picture>
 
-## 🛠️ Tech stack
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake.svg" width="100%" alt="Contribution graph animation"></picture></p>
 
-<table>
-  <tr>
-    <td width="140"><b>Backend & data</b></td>
-    <td><img src="./assets/skills-backend.svg" alt="Java, Spring, Maven, PostgreSQL, MongoDB, Supabase" /></td>
-  </tr>
-  <tr>
-    <td><b>Frontend</b></td>
-    <td><img src="./assets/skills-frontend.svg" alt="TypeScript, JavaScript, React, Next.js, Redux, Tailwind, HTML, CSS" /></td>
-  </tr>
-  <tr>
-    <td><b>Tools & DevOps</b></td>
-    <td><img src="./assets/skills-tools.svg" alt="Git, GitHub, GitHub Actions, Vite, Docker, Linux" /></td>
-  </tr>
-</table>
+<br>
 
-<br/>
+<a href="https://www.linkedin.com/in/mohd-farhan-79429624b"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/footer.svg" width="100%" alt="Let's build something that ships. Open to backend and full-stack roles and freelance work."></a>
 
-## ⭐ Featured projects
-
-<table>
-  <tr>
-    <td><a href="https://yusr.co.in"><img src="./assets/yusr.svg" width="100%" alt="YUSR AI" /></a></td>
-    <td><a href="https://github.com/Farhan7-tech/Ecommerce-snapBuy"><img src="./assets/snapbuy.svg" width="100%" alt="SnapBuy" /></a></td>
-  </tr>
-  <tr>
-    <td><a href="https://github.com/Farhan7-tech/SkyLink_File_Share_Application"><img src="./assets/skylink.svg" width="100%" alt="SkyLink" /></a></td>
-    <td><a href="https://github.com/Farhan7-tech/Generative-AI-Email-Assistant"><img src="./assets/email-ai.svg" width="100%" alt="AI Email Assistant" /></a></td>
-  </tr>
-</table>
-
-<br/>
-
-## 📈 GitHub activity
-
-<div align="center">
-
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake-dark.svg" />
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake.svg" />
-  <img alt="Contribution snake" src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake.svg" />
-</picture>
-
-</div>
-
-<br/>
-
-## 🤝 Let's work together
-
-I'm open to **backend and full-stack roles** and **freelance projects**. The best way to reach me is on **[LinkedIn](https://www.linkedin.com/in/mohd-farhan-79429624b)** or through my **[portfolio](https://mohdfarhan.framer.website/)**.
-
-<img src="./assets/footer.svg" width="100%" alt="" />
+<p align="center"><a href="https://mohdfarhan.framer.website/"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-portfolio-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-portfolio-light.svg" width="24%" alt="Portfolio"></picture></a><a href="https://www.linkedin.com/in/mohd-farhan-79429624b"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-linkedin-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-linkedin-light.svg" width="24%" alt="LinkedIn"></picture></a><a href="https://yusr.co.in"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-yusrai-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-yusrai-light.svg" width="24%" alt="YUSR AI"></picture></a><a href="https://codolio.com/profile/Farhan7"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-codolio-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/btn-codolio-light.svg" width="24%" alt="Codolio"></picture></a></p>
