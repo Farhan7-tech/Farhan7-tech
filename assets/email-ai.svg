@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="196" viewBox="0 0 420 196">
+<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#A855F7"/><stop offset="1" stop-color="#3B82F6"/></linearGradient>
+<radialGradient id="glow" cx="1" cy="0" r="0.9"><stop offset="0" stop-color="#3B82F6" stop-opacity="0.22"/><stop offset="1" stop-color="#3B82F6" stop-opacity="0"/></radialGradient>
+<style>.t{font:700 22px -apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#F9FAFB}.tag{font:700 10px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:1.5px;fill:#A855F7}.d{font:400 13px -apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#9CA3AF}.pill{font:600 11px -apple-system,Segoe UI,Helvetica,Arial,sans-serif;fill:#E5E7EB}</style></defs>
+<rect x="0.5" y="0.5" width="419" height="195" rx="14" fill="#0D1117" stroke="#30363D"/>
+<rect x="0.5" y="0.5" width="419" height="195" rx="14" fill="url(#glow)"/>
+<rect x="24" y="0.5" width="72" height="3" rx="1.5" fill="url(#g)"/>
+<text x="24" y="36" class="tag">GENERATIVE AI</text>
+<text x="24" y="66" class="t">AI Email Assistant</text>
+<text x="24" y="96" class="d">Writes email replies with Google Gemini,</text><text x="24" y="115" class="d">from a React web app or straight from</text><text x="24" y="134" class="d">a Chrome extension.</text>
+<rect x="24" y="150" width="98" height="24" rx="12" fill="#1F2937" stroke="#374151"/><text x="73" y="166" text-anchor="middle" class="pill">Spring Boot</text><rect x="130" y="150" width="57" height="24" rx="12" fill="#1F2937" stroke="#374151"/><text x="158.5" y="166" text-anchor="middle" class="pill">React</text><rect x="195" y="150" width="91" height="24" rx="12" fill="#1F2937" stroke="#374151"/><text x="240.5" y="166" text-anchor="middle" class="pill">Gemini API</text><rect x="294" y="150" width="91" height="24" rx="12" fill="#1F2937" stroke="#374151"/><text x="339.5" y="166" text-anchor="middle" class="pill">Chrome Ext</text>
+<circle cx="392" cy="32" r="5" fill="url(#g)"/>
+</svg>
