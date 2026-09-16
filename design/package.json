@@ -1,0 +1,15 @@
+{
+  "name": "farhan7-tech-profile-design",
+  "private": true,
+  "description": "Generates the animated SVGs used in the Farhan7-tech profile README.",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "@fontsource/geist-mono": "^5.2.5",
+    "@fontsource/geist-sans": "^5.2.5",
+    "@fontsource/instrument-serif": "^5.2.5",
+    "opentype.js": "1.3.4",
+    "subset-font": "^2.4.0"
+  }
+}
