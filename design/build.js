@@ -721,7 +721,7 @@ function cardLab() {
   d.add(s);
   d.style(`.flick{animation:flick 5s steps(1) infinite}@keyframes flick{0%,100%{opacity:1}92%{opacity:.93}93%{opacity:1}96%{opacity:.96}}`);
   let c = rise(0.1, eyebrow(d, t, 46, 48, 'ALSO IN THE LAB', { size: 11.5 })[0]);
-  c += `<g transform="translate(48 122)">${visPhosphor(d, { prompt: 'farhan@lab:~$ ls projects/', width: 404, rows: [['skylink-p2p-service/', 'JAVA'], ['yusr-website/', 'HTML'], ['daily-diary/', 'REACT'], ['challenge-app/', 'REACT'], ['java-fundamentals/', 'JAVA']] })}</g>`;
+  c += `<g transform="translate(48 122)">${visPhosphor(d, { prompt: 'farhan@lab:~$ ls projects/', width: 404, rows: [['skylink-p2p-service/', 'JAVA'], ['daily-diary/', 'REACT'], ['challenge-app/', 'REACT'], ['java-fundamentals/', 'JAVA']] })}</g>`;
   c += rise(1.3, `<g filter="url(#glow)">${d.text(48, 344, 'farhan@lab:~$', { font: 'm500', size: 14.5, fill: t.accent })}<rect class="blink" x="${48 + measure('farhan@lab:~$ ', 'm500', 14.5)}" y="331" width="9" height="16" fill="${t.accent}"/></g>`);
   {
     const bx = 46, by = 368, bw = 262, bh = 48;
