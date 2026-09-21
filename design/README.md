@@ -9,11 +9,15 @@ cd design
 npm install
 npm run build                      # profile images -> ../assets
 node build.js --repos ./repos-out  # banner.svg + footer.svg for every public repo
+node build.js --now ./now-out      # the "Now" card (needs GITHUB_TOKEN for higher rate limits)
+node build.js --counter            # font subset for ../counter (the profile views Worker)
 ```
 
 `npm run build` writes all 23 profile SVGs into `../assets`. Commit them, and the profile updates within a few minutes. GitHub caches images for about 5 minutes.
 
 `--repos` writes `<repo>/banner.svg` and `<repo>/footer.svg`. Each repo keeps its copies in `.github/assets/`, so copy them there and commit in that repo.
+
+The `Profile assets` workflow (`.github/workflows/profile-assets.yml`) runs every 6 hours. It rebuilds `now.svg` from your public events feed, plus the 3D contribution graph and the snake, and publishes them to the `output` branch. The events feed only covers public repos, so private work never appears.
 
 ## Common edits
 

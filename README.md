@@ -20,6 +20,10 @@
 
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-activity-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/main/assets/h-activity-light.svg" width="100%" alt="03 Activity: Commits, quietly compounding."></picture>
 
+<a href="https://github.com/Farhan7-tech?tab=repositories&sort=updated"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/now.svg" width="100%" alt="Latest public work, updated every 6 hours"></a>
+
+<p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/3d-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/3d-light.svg" width="100%" alt="3D contribution graph"></picture></p>
+
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake-dark.svg"><img src="https://raw.githubusercontent.com/Farhan7-tech/Farhan7-tech/output/snake.svg" width="100%" alt="Contribution graph animation"></picture></p>
 
 <br>
