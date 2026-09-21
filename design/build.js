@@ -200,9 +200,11 @@ function odometer(d, x, y, value, o) {
     if (!/\d/.test(ch)) { s += d.text(cx, y, ch, { font, size, fill: o.fill }); return; }
     const n = 20 + Number(ch), id = uid('odo'), clip = uid('oc');
     d.def(`<clipPath id="${clip}"><rect x="${cx - 4}" y="${y - size * 0.86}" width="${cell + 8}" height="${size * 1.12}"/></clipPath>`);
-    d.style(`.${id}{transform:translateY(-${(n * lh).toFixed(2)}px);animation:${id}k ${(1.6 + i * 0.35).toFixed(2)}s ${EASE} ${(o.delay || 0) + 0.1}s backwards}@keyframes ${id}k{from{transform:translateY(0)}}`);
+    // The final digit sits at rest on the baseline, so static renderers show the real value;
+    // the animation starts the column shifted down to "0" and rolls it up into place.
+    d.style(`.${id}{animation:${id}k ${(1.6 + i * 0.35).toFixed(2)}s ${EASE} ${(o.delay || 0) + 0.1}s backwards}@keyframes ${id}k{from{transform:translateY(${(n * lh).toFixed(2)}px)}}`);
     let col = '';
-    for (let k = 0; k <= n; k++) col += d.text(cx + cell / 2, y + k * lh, String(k % 10), { font, size, fill: o.fill, anchor: 'middle' });
+    for (let k = 0; k <= n; k++) col += d.text(cx + cell / 2, y + (k - n) * lh, String(k % 10), { font, size, fill: o.fill, anchor: 'middle' });
     s += `<g clip-path="url(#${clip})"><g class="${id}">${col}</g></g>`;
   });
   return s;
@@ -479,9 +481,9 @@ function visGuess(d) {
     Array.from({ length: 99 }, (_, i) => i + 1).filter((n) => n % 5 === 0 && n % 25).map((n) => `<path d="M${X(n)} 146V154" stroke="${t.ink}" stroke-opacity=".15"/>`).join(''));
   const seq = [[50, 'LOWER'], [25, 'HIGHER'], [37, 'HIGHER'], [43, 'LOWER'], [40, 'HIGHER'], [42, 'GOT IT']];
   const id = uid('ptr'), total = 7.5;
-  const frames = seq.map(([n], i) => { const p = ((i + 0.5) / seq.length) * 100; return `${(p - 6).toFixed(1)}%,${p.toFixed(1)}%{transform:translateX(${(X(n) - X(50)).toFixed(1)}px)}`; }).join('');
-  d.style(`.${id}{transform:translateX(${(X(42) - X(50)).toFixed(1)}px);animation:${id}k ${total}s ${EASE} .6s backwards}@keyframes ${id}k{0%{transform:translateX(0)}${frames}}`);
-  s += `<g class="${id}"><path d="M${X(50)} 136l-8-14h16z" fill="url(#jacc)"/></g>`;
+  const frames = seq.map(([n], i) => { const p = ((i + 0.5) / seq.length) * 100; return `${(p - 6).toFixed(1)}%,${p.toFixed(1)}%{transform:translateX(${(X(n) - X(42)).toFixed(1)}px)}`; }).join('');
+  d.style(`.${id}{animation:${id}k ${total}s ${EASE} .6s backwards}@keyframes ${id}k{0%{transform:translateX(${(X(50) - X(42)).toFixed(1)}px)}${frames}}`);
+  s += `<g class="${id}"><path d="M${X(42)} 136l-8-14h16z" fill="url(#jacc)"/></g>`;
   seq.forEach(([n, hint], i) => {
     const delay = 0.6 + ((i + 0.5) / seq.length) * total, last = i === seq.length - 1;
     const row = i % 3, col = Math.floor(i / 3), x = col * 160, y = 214 + row * 30;
@@ -772,6 +774,75 @@ function footer() {
 }
 
 // ============================================================
+// PROFILE: "NOW" CARD (latest public activity, rebuilt by the profile-assets workflow)
+// ============================================================
+const REPO_ACCENT = {
+  'Ecommerce-snapBuy': '#D4FF3A', SkyLink_File_Share_Application: '#67E8F9', SkyLink_P2P_Service: '#67E8F9',
+  'Generative-AI-Email-Assistant': '#C084FC', 'ChallengeApp-Frontend': '#5B8CFF', 'Journal-App-Frontend': '#F97316',
+};
+function fit(str, font, size, max, ls = 0) {
+  if (measure(str, font, size, ls) <= max) return str;
+  let s = str;
+  while (s.length > 1 && measure(s + '…', font, size, ls) > max) s = s.slice(0, -1);
+  return s.trimEnd() + '…';
+}
+function nowCard(items, updated) {
+  const W = 1200, H = 340, d = new Doc('now', W, H, P);
+  const ids = paint(d, P, 'p');
+  const [sl] = slab(d, P, 'p', 8, 8, W - 16, H - 16, 40, { core: '#050505', grain: 0.07, orbs: [{ x: 1120, y: 40, r: 320, c: '#7C3AED', a: 0.34, dx: -40, dy: 30, t: 17 }, { x: 60, y: 360, r: 260, c: '#10B981', a: 0.24, dx: 40, dy: -20, t: 19 }] });
+  d.add(sl);
+  d.add(rise(0.1, eyebrow(d, P, 56, 44, 'NOW / LATEST PUBLIC WORK', { size: 12.5 })[0]));
+  d.add(rise(0.15, d.text(W - 56, 64, `UPDATED ${updated}`, { font: 'm400', size: 11.5, ls: 2, op: 0.4, anchor: 'end' })));
+  const rows = items.length ? items : [{ date: '', repo: 'Nothing public yet', text: 'New work shows up here automatically.' }];
+  rows.slice(0, 3).forEach((it, i) => {
+    const y = 132 + i * 66, c = REPO_ACCENT[it.repo] || '#34D399';
+    let s = `<circle cx="66" cy="${y - 5}" r="5" fill="${c}"/><circle class="pulse" style="animation-delay:${i * 0.4}s" cx="66" cy="${y - 5}" r="5" fill="${c}"/>`;
+    s += d.text(88, y, it.date, { font: 'm400', size: 13, ls: 1.2, op: 0.45 });
+    s += d.text(170, y, fit(it.repo, 's500', 20, 330), { font: 's500', size: 20, ls: -0.3 });
+    s += d.text(520, y, fit(it.text, 's300', 19, W - 56 - 520), { font: 's300', size: 19, op: 0.62 });
+    if (i < rows.length - 1 && i < 2) s += `<path d="M56 ${y + 30}H${W - 56}" stroke="#fff" stroke-opacity=".07"/>`;
+    d.add(rise(0.3 + i * 0.15, s));
+  });
+  void ids;
+  return d;
+}
+
+// Reads the public events feed (public repos only, so nothing private can leak) and
+// turns it into up to three rows: merged PRs, releases, new repos and pushes.
+async function fetchNow(user, token) {
+  const H = { Accept: 'application/vnd.github+json', ...(token ? { Authorization: `Bearer ${token}` } : {}) };
+  const get = async (u) => { const r = await fetch(`https://api.github.com/${u}`, { headers: H }); if (!r.ok) throw new Error(`${u} -> ${r.status}`); return r.json(); };
+  const events = await get(`users/${user}/events/public?per_page=100`);
+  const fmt = (iso) => new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'Asia/Kolkata' }).toUpperCase();
+  const out = [], seen = new Set();
+  for (const e of events) {
+    const repo = e.repo.name.split('/')[1];
+    if (repo === user) continue; // profile repo churn is not "work"
+    let text = null;
+    if (e.type === 'PullRequestEvent' && e.payload.action === 'closed' && e.payload.pull_request?.merged) text = `Merged #${e.payload.pull_request.number}: ${e.payload.pull_request.title}`;
+    else if (e.type === 'ReleaseEvent' && e.payload.action === 'published') text = `Released ${e.payload.release.tag_name}: ${e.payload.release.name || ''}`.replace(/: $/, '');
+    else if (e.type === 'CreateEvent' && e.payload.ref_type === 'repository') text = 'Created the repository';
+    else if (e.type === 'PushEvent') {
+      let msg = e.payload.commits?.at(-1)?.message;
+      if (!msg && e.payload.head) msg = (await get(`repos/${e.repo.name}/commits/${e.payload.head}`).catch(() => null))?.commit?.message;
+      if (msg) text = `Pushed: ${msg.split('\n')[0].replace(/\s*\(#\d+\)$/, '')}`;
+    }
+    if (!text) continue;
+    // One row per change: a squash merge shows up as both a push and a merged PR (prefer
+    // the PR wording), and a sweep across many repos with the same message shows once.
+    const key = text.replace(/^(Merged #\d+|Pushed): /, '');
+    if (seen.has(key)) {
+      const prev = out.find((o) => o.key === key);
+      if (prev && prev.repo === repo && /^Merged/.test(text)) prev.text = text;
+      continue;
+    }
+    seen.add(key);
+    out.push({ key, date: fmt(e.created_at), repo, text });
+  }
+  return out.slice(0, 3);
+}
+
+// ============================================================
 // REPO README BANNERS + FOOTERS
 // ============================================================
 const REPOS = [
@@ -863,6 +934,24 @@ async function emit(docs, outDir) {
 
 (async () => {
   const args = process.argv.slice(2);
+  if (args[0] === '--counter') {
+    // Font subsets + metrics for the profile-views Worker (../counter), which draws the SVG at request time.
+    const label = 'PROFILE VIEWS', digits = '0123456789,';
+    for (const ch of label) FONTS.m500.chars.add(ch);
+    for (const ch of digits) FONTS.m500.chars.add(ch);
+    const b64 = (await subsetFont(fs.readFileSync(FONTS.m500.file + '.woff2'), [...FONTS.m500.chars].join('') + ' ', { targetFormat: 'woff2' })).toString('base64');
+    const meta = { label, labelSize: 12.5, labelLs: 2.5, labelWidth: +measure(label, 'm500', 12.5, 2.5).toFixed(2), digitSize: 30, cell: +measure('0', 'm500', 30).toFixed(2) };
+    const out = args[1] || path.join(__dirname, '..', 'counter', 'src', 'assets.js');
+    fs.writeFileSync(out, `// Generated by design/build.js --counter. Do not edit by hand.\nexport const META = ${JSON.stringify(meta)};\nexport const MONO_500_WOFF2 = '${b64}';\n`);
+    return console.log('wrote', out, meta, (b64.length / 1024).toFixed(1) + ' KB font');
+  }
+  if (args[0] === '--now') {
+    const out = args[1] || path.join(__dirname, 'now-out');
+    const items = await fetchNow('Farhan7-tech', process.env.GITHUB_TOKEN);
+    const updated = new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'Asia/Kolkata' }).toUpperCase();
+    console.log(items);
+    return emit([nowCard(items, updated)], out);
+  }
   if (args[0] === '--repos') {
     const out = args[1] || path.join(__dirname, 'repos-out');
     const docs = [];
