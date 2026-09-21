@@ -6,4 +6,4 @@ workers_dev = true
 [[d1_databases]]
 binding = "DB"
 database_name = "profile-views"
-database_id = "REPLACE_AFTER_CREATE"
+database_id = "90d5b53c-343e-41c4-bcab-a786ffe5451a"
