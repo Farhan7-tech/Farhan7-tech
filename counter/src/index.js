@@ -1,17 +1,8 @@
 // Profile views counter for github.com/Farhan7-tech.
-// GET /views.svg[?theme=light]  -> counts the view (subject to cooldown and pause) and returns the badge
+// GET /views.svg[?theme=light]  -> increments the count and returns the badge
 // GET /views.svg?peek=1         -> returns the badge without counting (for previews)
-// GET /pause?key=...            -> owner: stop counting for PAUSE_MS (open before checking your own profile)
-// GET /resume?key=...           -> owner: end the pause early
 // GET /health                   -> "ok"
-//
-// Why not just "skip the owner": GitHub fetches README images through its camo proxy, so every
-// request arrives from GitHub's servers with no cookies and no viewer IP. The Worker cannot tell
-// the owner from anyone else, so it relies on a cooldown plus an explicit pause switch instead.
 import { META, MONO_500_WOFF2 } from './assets.js';
-
-const COOLDOWN_MS = 10 * 60 * 1000; // a burst of refreshes counts once
-const PAUSE_MS = 60 * 60 * 1000;
 
 const EASE = 'cubic-bezier(0.32,0.72,0,1)';
 const THEMES = {
@@ -19,40 +10,12 @@ const THEMES = {
   light: { shell: '#0A0A0A', shellOp: 0.035, stroke: 0.09, core: '#FFFFFF', ink: '#0A0A0A', dot: '#059669', hl: 0 },
 };
 
-// Counts a view only if the cooldown has passed and the owner hasn't paused counting. The check and
-// the increment are one statement, so two simultaneous requests can't both get through.
-async function bump(db, now) {
+async function bump(db) {
   const row = await db
-    .prepare(
-      `UPDATE counters SET n = n + 1, last_at = ?1
-       WHERE name = 'profile' AND COALESCE(last_at, 0) <= ?1 - ?2 AND COALESCE(paused_until, 0) <= ?1
-       RETURNING n`,
-    )
-    .bind(now, COOLDOWN_MS)
+    .prepare("INSERT INTO counters (name, n) VALUES ('profile', 1) ON CONFLICT(name) DO UPDATE SET n = n + 1 RETURNING n")
     .first();
-  return row ? row.n : peek(db);
+  return row.n;
 }
-
-// Constant-time comparison, so the key can't be guessed byte by byte from response timing.
-function keyMatches(given, expected) {
-  if (!given || !expected || given.length !== expected.length) return false;
-  let diff = 0;
-  for (let i = 0; i < given.length; i++) diff |= given.charCodeAt(i) ^ expected.charCodeAt(i);
-  return diff === 0;
-}
-
-function page(title, lines) {
-  const body = lines.map((l) => `<p>${l}</p>`).join('');
-  return new Response(
-    `<!doctype html><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><title>${title}</title>
-<style>body{margin:0;min-height:100dvh;display:grid;place-items:center;background:#050505;color:#fff;font:16px/1.6 ui-sans-serif,system-ui,sans-serif}
-main{max-width:30rem;padding:2rem}h1{font-size:1.4rem;margin:0 0 .75rem}p{margin:.4rem 0;color:#ffffffb3}a{color:#34D399}</style>
-<main><h1>${title}</h1>${body}</main>`,
-    { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } },
-  );
-}
-
-const ist = (ms) => new Date(ms).toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' });
 
 async function peek(db) {
   const row = await db.prepare("SELECT n FROM counters WHERE name = 'profile'").first();
@@ -115,20 +78,10 @@ export default {
   async fetch(request, env) {
     const url = new URL(request.url);
     if (url.pathname === '/health') return new Response('ok');
+    if (url.pathname !== '/views.svg') return new Response('Not found', { status: 404 });
     if (request.method !== 'GET' && request.method !== 'HEAD') return new Response('Method not allowed', { status: 405 });
 
-    if (url.pathname === '/pause' || url.pathname === '/resume') {
-      if (!keyMatches(url.searchParams.get('key'), env.PAUSE_KEY)) return new Response('Not found', { status: 404 });
-      const now = Date.now();
-      const until = url.pathname === '/pause' ? now + PAUSE_MS : 0;
-      await env.DB.prepare("UPDATE counters SET paused_until = ?1 WHERE name = 'profile'").bind(until).first();
-      return url.pathname === '/pause'
-        ? page('Counting paused', [`Your profile views won't be counted until <b>${ist(until)} IST</b>.`, '<a href="https://github.com/Farhan7-tech">Open your profile →</a>', 'Visitors during this hour aren\'t counted either.'])
-        : page('Counting resumed', ['Profile views are being counted again.', '<a href="https://github.com/Farhan7-tech">Open your profile →</a>']);
-    }
-
-    if (url.pathname !== '/views.svg') return new Response('Not found', { status: 404 });
-    const count = url.searchParams.has('peek') || request.method === 'HEAD' ? await peek(env.DB) : await bump(env.DB, Date.now());
+    const count = url.searchParams.has('peek') || request.method === 'HEAD' ? await peek(env.DB) : await bump(env.DB);
     const theme = url.searchParams.get('theme') === 'light' ? 'light' : 'dark';
     return new Response(badge(count, theme), {
       headers: {

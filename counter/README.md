@@ -1,37 +1,25 @@
 # Profile views counter
 
-A Cloudflare Worker that serves the "Profile views" badge on the profile README. The count lives in Cloudflare D1, and the badge is an SVG in the profile's design with digits that roll into place.
+A Cloudflare Worker that serves the "Profile views" badge on the profile README. Each request to `/views.svg` adds 1 to a counter in Cloudflare D1 (an atomic `UPDATE ... RETURNING`, so simultaneous views aren't lost) and returns the badge as an SVG in the profile's design. The digits roll into place.
 
 | Request | Result |
 | --- | --- |
-| `/views.svg` | Counts the view (see rules below) and returns the dark badge |
-| `/views.svg?theme=light` | Same, light badge |
+| `/views.svg` | Counts the view and returns the dark badge |
+| `/views.svg?theme=light` | Counts the view and returns the light badge |
 | `/views.svg?peek=1` | Returns the badge without counting |
-| `/pause?key=<PAUSE_KEY>` | Owner: stop counting for 1 hour |
-| `/resume?key=<PAUSE_KEY>` | Owner: end the pause early |
 | `/health` | `ok` |
 
-## What counts as a view
-
-GitHub loads README images through its camo proxy, so every request reaches the Worker from GitHub's servers, with no cookies and no viewer IP. **The Worker can't tell the owner from a visitor**, and no GitHub profile counter can. So it uses two rules instead:
-
-- **10-minute cooldown.** A view counts only if at least 10 minutes have passed since the last counted view, so a burst of refreshes counts once. The trade-off is that two different visitors within 10 minutes also count once.
-- **Owner pause.** Opening the private `/pause` link stops all counting for an hour, including visitors in that window. Bookmark it and open it before checking your own profile.
-
-The cooldown check, the pause check and the increment are a single `UPDATE … RETURNING`, so simultaneous requests can't double-count. Responses are sent with `no-cache` so GitHub refetches on every page load.
+Responses are sent with `no-cache`, so GitHub's image proxy fetches a fresh count on every profile view. It counts page loads, not unique people.
 
 ## Deploy
 
 ```bash
 cd counter
 npx wrangler login
-npx wrangler d1 create profile-views                         # copy database_id into wrangler.toml
+npx wrangler d1 create profile-views        # copy the database_id into wrangler.toml
 npx wrangler d1 execute profile-views --remote --file schema.sql
-npx wrangler secret put PAUSE_KEY                            # any long random string; keep it private
 npx wrangler deploy
 ```
-
-An existing database from before the cooldown needs `migrations/0002_cooldown_and_pause.sql` applied once (already done for the live one). For local testing, put `PAUSE_KEY=...` in `.dev.vars`, which is gitignored.
 
 ## Change the look
 
