@@ -338,7 +338,7 @@ function stars(d, t, x, y, w, h, n, seed) {
   return s;
 }
 
-// SkyLink P2P: request pipeline with packets. Box 320 x 320.
+// SkyLink Transfer: request pipeline with packets. Box 320 x 320.
 function visP2P(d) {
   const t = THEMES.skylink;
   paint(d, t, 'k');
@@ -699,7 +699,7 @@ function cardSkylink() {
   const [s] = slab(d, t, 'k', 10, 10, W - 20, CH - 20, 38, { pad: 7, under: starsSvg, orbs: [{ x: 600, y: 420, r: 320, c: '#38BDF8', a: 0.26, dx: -40, dy: -30, t: 17 }, { x: 80, y: 20, r: 240, c: '#6366F1', a: 0.26, t: 20 }] });
   d.add(s);
   d.add(cardCopy(d, t, 'k', 48, { eyebrow: 'FILE SHARING', title: 'SkyLink', titleY: 156, tagline: 'Share a file with six digits.', tagFill: `url(#kacc)`,
-    desc: ['Spring Boot + MongoDB with JWT auth,', 'shareable links and Razorpay, plus a', 'plain-Java P2P transfer engine.'], descY: 246, chips: ['Spring Boot', 'MongoDB', 'React'], chipsY: 360 }));
+    desc: ['Spring Boot + MongoDB with JWT auth,', 'shareable links and Razorpay, plus a', 'plain-Java transfer engine.'], descY: 246, chips: ['Spring Boot', 'MongoDB', 'React'], chipsY: 360 }));
   d.add(arrowDisc(d, t, W - 60, 64, 24));
   d.add(`<g transform="translate(372 96)">${visSkyOrbit(d)}</g>`);
   return d;
@@ -777,7 +777,7 @@ function footer() {
 // PROFILE: "NOW" CARD (latest public activity, rebuilt by the profile-assets workflow)
 // ============================================================
 const REPO_ACCENT = {
-  'Ecommerce-snapBuy': '#D4FF3A', SkyLink_File_Share_Application: '#67E8F9', SkyLink_P2P_Service: '#67E8F9',
+  'Ecommerce-snapBuy': '#D4FF3A', SkyLink_File_Share_Application: '#67E8F9', SkyLink_Transfer_Service: '#67E8F9',
   'Generative-AI-Email-Assistant': '#C084FC', 'ChallengeApp-Frontend': '#5B8CFF', 'Journal-App-Frontend': '#F97316',
 };
 function fit(str, font, size, max, ls = 0) {
@@ -848,7 +848,7 @@ async function fetchNow(user, token) {
 const REPOS = [
   { repo: 'Ecommerce-snapBuy', theme: 'snapbuy', p: 's', eyebrow: 'FULL-STACK / E-COMMERCE', title: 'SnapBuy', marker: 'Buy', tagline: 'Add to cart. Pay. Done.', desc: ['Spring Boot REST API and a React + Redux', 'storefront with JWT auth and Stripe checkout.'], chips: ['Java 17', 'Spring Boot', 'React', 'Redux', 'PostgreSQL', 'Stripe'], vis: visSnapReceipt, box: [410, 330], scale: 1.1 },
   { repo: 'SkyLink_File_Share_Application', theme: 'skylink', p: 'k', stars: true, eyebrow: 'FULL-STACK / FILE SHARING', title: 'SkyLink', tagline: 'Share a file with six digits.', desc: ['Spring Boot + MongoDB API with JWT auth,', 'shareable links and Razorpay, React frontend.'], chips: ['Spring Boot', 'MongoDB', 'React', 'Razorpay'], vis: visSkyOrbit, box: [300, 300], scale: 1.4 },
-  { repo: 'SkyLink_P2P_Service', theme: 'skylink', p: 'k', stars: true, eyebrow: 'JAVA / TRANSFER ENGINE', title: 'SkyLink P2P', tagline: 'Upload once. Download once. Gone.', desc: ['A plain-Java HTTP and socket server that gives', 'every file one port and one six-digit code.'], chips: ['Java 17', 'HttpServer', 'Sockets', 'Maven', 'No framework'], vis: visP2P, box: [320, 320], scale: 1.32 },
+  { repo: 'SkyLink_Transfer_Service', theme: 'skylink', p: 'k', stars: true, eyebrow: 'JAVA / TRANSFER ENGINE', title: 'SkyLink Transfer', tagline: 'Upload once. Download once. Gone.', desc: ['A plain-Java HTTP and socket server that gives', 'every file one port and one six-digit code.'], chips: ['Java 17', 'HttpServer', 'Sockets', 'Maven', 'No framework'], vis: visP2P, box: [320, 320], scale: 1.32 },
   { repo: 'Generative-AI-Email-Assistant', theme: 'holo', p: 'h', eyebrow: 'GENERATIVE AI / CHROME EXTENSION', title: 'AI Email Assistant', tagline: 'Replies that write themselves.', desc: ['Spring Boot + Google Gemini behind a React', 'web app and a Chrome extension.'], chips: ['Spring Boot', 'Gemini API', 'React', 'Vite', 'Chrome Extension'], vis: visHoloCompose, box: [290, 320], scale: 1.32 },
   { repo: 'YUSR-WEBSITE', theme: 'yusr', p: 'y', logo: true, eyebrow: 'YUSR AI / MARKETING SITE', title: 'YUSR AI', tagline: 'WhatsApp CRM, with a brain.', desc: ['The marketing site for yusr.co.in: 13 pages of', 'hand-written HTML, CSS and JS. No build step.'], chips: ['HTML', 'CSS', 'JavaScript', 'No framework'], vis: visYusrBrowser, box: [320, 300], scale: 1.36, link: 'https://yusr.co.in' },
   { repo: 'ChallengeApp-Frontend', theme: 'challenge', p: 'c', eyebrow: 'REACT / PRODUCTIVITY', title: 'ChallengeApp', tagline: 'One challenge, every month.', desc: ['A React 19 + Vite frontend for a Spring Boot', 'API: add monthly challenges and track them.'], chips: ['React 19', 'Vite', 'Bootstrap 5', 'Axios'], vis: visMonths, box: [312, 296], scale: 1.36 },
